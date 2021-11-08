@@ -2,8 +2,8 @@ const IMAGES = [
   require('../images/watch.png'),
   require('../images/watch2.png'),
   require('../images/watch3.png'),
-  require('../images/watch4.png'),
   require('../images/watch5.png'),
+  require('../images/watch4.png'),
 ];
 
 const WATCHES = [

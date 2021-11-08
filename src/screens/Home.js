@@ -1,74 +1,119 @@
-import {isTSEnumMember} from '@babel/types';
 import React from 'react';
 import {
   View,
   Text,
   Image,
-  StyleSheet,
   FlatList,
   TouchableHighlight,
+  ScrollView,
 } from 'react-native';
 import {Icon} from 'react-native-elements';
 import CATEGORIES from '../assets/data/categories';
+import WATCHES from '../assets/data/watches';
+import styles from '../styles/Styles';
+import homeStyles from '../styles/Home';
+import COLORS from '../styles/Colors';
 
-export default function Home() {
+export default function Home({navigation}) {
+  function goToDetail() {
+    navigation.navigate('Detail');
+  }
+
   return (
-    <View>
-      {/* header */}
+    <ScrollView style={styles.container}>
       <View>
-        <View>
-          <Text>Buy Your Item</Text>
-          <Text>Desired Watch</Text>
-        </View>
-        <View>
-          <Icon name="" type="" />
-          <View></View>
-        </View>
-      </View>
-      {/* search */}
-      <View>
-        <View>
-          <Icon name="" type="" />
-          <Text>Search here...</Text>
-        </View>
-        <View>
-          <Icon name="" type="" />
-        </View>
-      </View>
-      {/* category slider */}
-      <View>
-        {CATEGORIES.map((category, index) => (
+        {/* header */}
+        <View style={[homeStyles.headerContainer, styles.pd]}>
           <View>
-            <Text>{category.name}</Text>
+            <Text style={homeStyles.headerText}>Buy Your</Text>
+            <Text style={[homeStyles.headerText, styles.boldText]}>
+              Desired Watch
+            </Text>
           </View>
-        ))}
-      </View>
-      {/* watch list */}
-      <View>
-        <FlatList
-          numColumns={2}
-          data={CATEGORIES}
-          renderItem={({item, index, separators}) => (
-            <TouchableHighlight
-              key={index}
-              onPress={() => alert('hai')}
-              onShowUnderlay={separators.highlight}
-              onHideUnderlay={separators.unhighlight}>
-              <View>
-                <Image src={item.image} />
-                <View>
-                  <Text>{item.name}</Text>
-                  <View>
-                    <Text>${item.price}</Text>
-                    <Icon name="" type="" />
+          <View style={homeStyles.notificationHeaderContainer}>
+            <Icon
+              color={COLORS.white}
+              name="notifications-outline"
+              type="ionicon"
+            />
+            <View style={homeStyles.notificationIndicator}></View>
+          </View>
+        </View>
+        {/* search */}
+        <View style={[homeStyles.searchContainer, styles.pd]}>
+          <View style={homeStyles.searchBoxContainer}>
+            <Icon name="search-outline" type="ionicon" color={COLORS.white} />
+            <Text style={homeStyles.searchText}>Search here...</Text>
+          </View>
+          <View style={homeStyles.filterContainer}>
+            <Icon name="options-outline" type="ionicon" />
+          </View>
+        </View>
+        {/* category slider */}
+        <View style={[styles.pd, homeStyles.categoryContainer]}>
+          <ScrollView horizontal={true}>
+            {CATEGORIES.map((category, index) => (
+              <View
+                style={[
+                  homeStyles.categoryItemContainer,
+                  index == 1 ? homeStyles.categoryItemActive : null,
+                ]}>
+                <Text
+                  style={[
+                    homeStyles.categoryItemText,
+                    index == 1 ? styles.blackText : null,
+                  ]}>
+                  {category.name}
+                </Text>
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+        {/* watch list */}
+        <View
+          style={[
+            styles.pd,
+            {
+              marginBottom: 30,
+            },
+          ]}>
+          <FlatList
+            data={WATCHES}
+            renderItem={({item, index, separators}) => (
+              <TouchableHighlight
+                style={{flex: 1}}
+                key={index}
+                onPress={() => goToDetail()}
+                onShowUnderlay={separators.highlight}
+                onHideUnderlay={separators.unhighlight}>
+                <View style={homeStyles.watchListItem}>
+                  <Image
+                    source={item.image}
+                    style={homeStyles.watchListImage}
+                  />
+                  <View style={homeStyles.watchListDetailContainer}>
+                    <View style={homeStyles.watchListItemNameContainer}>
+                      <Text style={homeStyles.watchListItemName}>
+                        {item.name}
+                      </Text>
+                    </View>
+                    <View style={homeStyles.watchListPriceContainer}>
+                      <Text style={homeStyles.watchListItemPrice}>
+                        ${item.price}
+                      </Text>
+                      <View style={homeStyles.watchListItemIconContainer}>
+                        <Icon size={20} name="add-outline" type="ionicon" />
+                      </View>
+                    </View>
                   </View>
                 </View>
-              </View>
-            </TouchableHighlight>
-          )}
-        />
+              </TouchableHighlight>
+            )}
+            numColumns={2}
+          />
+        </View>
+        {/*  */}
       </View>
-      {/*  */}
-    </View>
+    </ScrollView>
   );
 }

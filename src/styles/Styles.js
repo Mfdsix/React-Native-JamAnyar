@@ -9,6 +9,8 @@ const styles = StyleSheet.create({
   },
   pd: {
     padding: 20,
+    paddingBottom: 0,
+    marginTop: 20,
   },
   pr0: {
     paddingRight: 0,
@@ -21,6 +23,9 @@ const styles = StyleSheet.create({
   },
   blackText: {
     color: COLORS.black,
+  },
+  boldText: {
+    fontWeight: 'bold',
   },
 });
 

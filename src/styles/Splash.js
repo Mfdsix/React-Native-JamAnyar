@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flex: 1,
     backgroundColor: COLORS.black,
+    marginTop: 0,
   },
   image: {
     alignSelf: 'center',
