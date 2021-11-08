@@ -13,6 +13,7 @@ import WATCHES from '../assets/data/watches';
 import styles from '../styles/Styles';
 import homeStyles from '../styles/Home';
 import COLORS from '../styles/Colors';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 export default function Home({navigation}) {
   function goToDetail() {
@@ -54,6 +55,7 @@ export default function Home({navigation}) {
           <ScrollView horizontal={true}>
             {CATEGORIES.map((category, index) => (
               <View
+                key={index}
                 style={[
                   homeStyles.categoryItemContainer,
                   index == 1 ? homeStyles.categoryItemActive : null,
@@ -70,7 +72,7 @@ export default function Home({navigation}) {
           </ScrollView>
         </View>
         {/* watch list */}
-        <View
+        <SafeAreaProvider
           style={[
             styles.pd,
             {
@@ -111,7 +113,7 @@ export default function Home({navigation}) {
             )}
             numColumns={2}
           />
-        </View>
+        </SafeAreaProvider>
         {/*  */}
       </View>
     </ScrollView>
